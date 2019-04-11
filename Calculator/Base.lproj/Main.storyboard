@@ -27,7 +27,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cwi-I6-dF9">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lSq-4M-jOm">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lSq-4M-jOm">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                         <color key="backgroundColor" red="0.86274509799999999" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="textColor"/>
@@ -39,7 +39,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="shV-Ti-Oai">
                                                 <rect key="frame" x="0.0" y="92.5" width="375" height="92.5"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o6I-iu-iZS">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o6I-iu-iZS">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -73,6 +73,9 @@
                                                         <state key="normal" title="Converter">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="converterButtonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wiE-kA-r3z"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -233,7 +236,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="conversionButton" destination="eL3-7X-trx" id="tMz-2a-McA"/>
                         <outlet property="inputDisplay" destination="o6I-iu-iZS" id="Zi1-RO-7XH"/>
                         <outlet property="outputDisplay" destination="lSq-4M-jOm" id="LCl-CA-icl"/>
                     </connections>
