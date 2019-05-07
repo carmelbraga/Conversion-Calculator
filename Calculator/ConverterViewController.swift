@@ -12,8 +12,39 @@ class ConverterViewController: UIViewController {
     
     var converterArray: [Converter] = [Converter]()
     
+    var currentNum: Double = 0
+    
     @IBOutlet weak var outputDisplay: UITextField!
     @IBOutlet weak var inputDisplay: UITextField!
+    
+    @IBAction func numButtons(_ sender: UIButton) {
+        
+        inputDisplay.text = String(sender.tag-1) + self.inputDisplay.text!
+        currentNum = Double(sender.tag-1) + currentNum
+        outputDisplay.text = doConversion(currentNum: currentNum)
+        
+    }
+    
+    @IBAction func clearButton(_ sender: UIButton) {
+        
+         inputDisplay.text = "" + converterArray[IndexPath].inputUnit
+         currentNum = 0
+         outputDisplay.text = "" + converterArray[IndexPath].inputUnit
+    }
+    
+    @IBAction func negativeButton(_ sender: UIButton) {
+        
+        inputDisplay.text = "-" + self.inputDisplay.text!
+        currentNum = -currentNum
+        outputDisplay.text = doConversion(currentNum: currentNum)
+    }
+    
+    @IBAction func decimalButton(_ sender: UIButton) {
+        
+        inputDisplay.text = self.inputDisplay.text! + "."
+        outputDisplay.text = doConversion(currentNum: currentNum)
+        
+    }
     
     @IBAction func converterButtonClick(_ sender: Any) {
         let alert = UIAlertController(title: "Choose Converter", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
@@ -52,14 +83,42 @@ class ConverterViewController: UIViewController {
                            Converter(label: "miles to kilometers", inputUnit: "mi", outputUnit: "km"),
                            Converter(label: "kilometers to miles", inputUnit: "km", outputUnit: "mi")]
         
-        
         outputDisplay.text = converterArray[0].outputUnit
         inputDisplay.text = converterArray[0].inputUnit
+        
+    }
+    
+    
+    func doConversion(currentNum: Double) -> String{
+    
+        
+        switch converterArray[IndexPath].label{
+            
+        case "fahrenheit to celcius":
+        
+            outputDisplay.text! = String((currentNum - 32) * (5/9))
+            
+        case "celcius to fahrenheit":
+            outputDisplay.text! = String((currentNum * (9/5) + 32))
+
+        case "miles to kilometers":
+            outputDisplay.text! = String(currentNum / 0.62137)
+
+        case "kilometers to miles":
+            outputDisplay.text! = String(currentNum * 0.62137)
+            
+        default:
+            break
+        }
+        
+        return outputDisplay.text! + converterArray[IndexPath].outputUnit
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+   
 }

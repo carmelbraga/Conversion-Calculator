@@ -12,4 +12,6 @@ struct Converter{
     var label: String
     var inputUnit: String
     var outputUnit: String
+
 }
+
