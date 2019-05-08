@@ -11,7 +11,7 @@ import UIKit
 class ConverterViewController: UIViewController {
     
     var converterArray: [Converter] = [Converter]()
-    
+    var activeConverterIndex = 0
     var currentNum: Double = 0
     
     @IBOutlet weak var outputDisplay: UITextField!
@@ -19,17 +19,18 @@ class ConverterViewController: UIViewController {
     
     @IBAction func numButtons(_ sender: UIButton) {
         
-        inputDisplay.text = String(sender.tag-1) + self.inputDisplay.text!
-        currentNum = Double(sender.tag-1) + currentNum
+        inputDisplay.text = self.inputDisplay.text! + String(sender.tag-1)
+        currentNum = Double(inputDisplay.text!)!
+        print(currentNum)
         outputDisplay.text = doConversion(currentNum: currentNum)
         
     }
     
     @IBAction func clearButton(_ sender: UIButton) {
         
-         inputDisplay.text = "" + converterArray[IndexPath].inputUnit
-         currentNum = 0
-         outputDisplay.text = "" + converterArray[IndexPath].inputUnit
+        inputDisplay.text = "" + converterArray[activeConverterIndex].inputUnit
+        currentNum = 0
+        outputDisplay.text = "" + converterArray[activeConverterIndex].outputUnit
     }
     
     @IBAction func negativeButton(_ sender: UIButton) {
@@ -52,24 +53,28 @@ class ConverterViewController: UIViewController {
         alert.addAction(UIAlertAction(title: converterArray[0].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
             self.outputDisplay.text = self.converterArray[0].outputUnit
+            self.activeConverterIndex = 0
             self.inputDisplay.text = self.converterArray[0].inputUnit
         }))
         
         alert.addAction(UIAlertAction(title: converterArray[1].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
             self.outputDisplay.text = self.converterArray[1].outputUnit
+            self.activeConverterIndex = 1
             self.inputDisplay.text = self.converterArray[1].inputUnit
         }))
         
         alert.addAction(UIAlertAction(title: converterArray[2].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
             self.outputDisplay.text = self.converterArray[2].outputUnit
+            self.activeConverterIndex = 2
             self.inputDisplay.text = self.converterArray[2].inputUnit
         }))
         
         alert.addAction(UIAlertAction(title: converterArray[3].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
             self.outputDisplay.text = self.converterArray[3].outputUnit
+            self.activeConverterIndex = 3
             self.inputDisplay.text = self.converterArray[3].inputUnit
         }))
         
@@ -90,28 +95,28 @@ class ConverterViewController: UIViewController {
     
     
     func doConversion(currentNum: Double) -> String{
-    
         
-        switch converterArray[IndexPath].label{
+        
+        switch converterArray[activeConverterIndex].label{
             
         case "fahrenheit to celcius":
-        
+            
             outputDisplay.text! = String((currentNum - 32) * (5/9))
             
         case "celcius to fahrenheit":
             outputDisplay.text! = String((currentNum * (9/5) + 32))
-
+            
         case "miles to kilometers":
-            outputDisplay.text! = String(currentNum / 0.62137)
-
-        case "kilometers to miles":
             outputDisplay.text! = String(currentNum * 0.62137)
+            
+        case "kilometers to miles":
+            outputDisplay.text! = String(currentNum / 0.62137)
             
         default:
             break
         }
         
-        return outputDisplay.text! + converterArray[IndexPath].outputUnit
+        return outputDisplay.text! + converterArray[activeConverterIndex].outputUnit
         
     }
     
@@ -120,5 +125,5 @@ class ConverterViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   
+    
 }
