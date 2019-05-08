@@ -20,8 +20,7 @@ class ConverterViewController: UIViewController {
     @IBAction func numButtons(_ sender: UIButton) {
         
         inputDisplay.text = self.inputDisplay.text! + String(sender.tag-1)
-        currentNum = Double(inputDisplay.text!)!
-        print(currentNum)
+        currentNum = Double(inputDisplay?.text ?? "0")!
         outputDisplay.text = doConversion(currentNum: currentNum)
         
     }
