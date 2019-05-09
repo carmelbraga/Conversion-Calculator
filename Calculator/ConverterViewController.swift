@@ -12,16 +12,21 @@ class ConverterViewController: UIViewController {
     
     var converterArray: [Converter] = [Converter]()
     var activeConverterIndex = 0
-    var currentNum: Double = 0
+    var currentNum: Double? = 0
     
     @IBOutlet weak var outputDisplay: UITextField!
     @IBOutlet weak var inputDisplay: UITextField!
     
     @IBAction func numButtons(_ sender: UIButton) {
         
-        inputDisplay.text = self.inputDisplay.text! + String(sender.tag-1)
+        inputDisplay.text = String(sender.tag-1) + self.inputDisplay.text!
         currentNum = Double(inputDisplay?.text ?? "0")
-        outputDisplay.text = doConversion(currentNum: currentNum)
+        
+        if let currentNum = Double(self.inputDisplay?.text ?? "0"){
+        
+            outputDisplay.text = doConversion(currentNum: currentNum )
+            //print(currentNum)
+        }
         
     }
     
@@ -35,14 +40,14 @@ class ConverterViewController: UIViewController {
     @IBAction func negativeButton(_ sender: UIButton) {
         
         inputDisplay.text = "-" + self.inputDisplay.text!
-        currentNum = -currentNum
-        outputDisplay.text = doConversion(currentNum: currentNum)
+        currentNum = -currentNum!
+        outputDisplay.text = doConversion(currentNum: currentNum!)
     }
     
     @IBAction func decimalButton(_ sender: UIButton) {
         
         inputDisplay.text = self.inputDisplay.text! + "."
-        outputDisplay.text = doConversion(currentNum: currentNum)
+        outputDisplay.text = doConversion(currentNum: currentNum ?? 0)
         
     }
     
@@ -100,16 +105,22 @@ class ConverterViewController: UIViewController {
             
         case "fahrenheit to celcius":
             
-            outputDisplay.text! = String((currentNum - 32) * (5/9))
+            if let currentNum = Double(self.inputDisplay?.text ?? "0"){
+                
+                outputDisplay.text! = String((currentNum - 32) * (5/9))}
             
         case "celcius to fahrenheit":
-            outputDisplay.text! = String((currentNum * (9/5) + 32))
+            
+             if let currentNum = Double(self.inputDisplay?.text ?? "0"){
+                outputDisplay.text! = String((currentNum * (9/5) + 32))}
             
         case "miles to kilometers":
-            outputDisplay.text! = String(currentNum * 0.62137)
+             if let currentNum = Double(self.inputDisplay?.text ?? "0"){
+                outputDisplay.text! = String(currentNum * 0.62137)}
             
         case "kilometers to miles":
-            outputDisplay.text! = String(currentNum / 0.62137)
+             if let currentNum = Double(self.inputDisplay?.text ?? "0"){
+                outputDisplay.text! = String(currentNum / 0.62137)}
             
         default:
             break
