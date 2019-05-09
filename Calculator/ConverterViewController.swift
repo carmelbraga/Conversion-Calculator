@@ -10,6 +10,8 @@ import UIKit
 
 class ConverterViewController: UIViewController {
     
+    var userInput = ""
+    var buttonVal = ""
     var converterArray: [Converter] = [Converter]()
     var activeConverterIndex = 0
     var currentNum: Double? = 0
@@ -19,13 +21,13 @@ class ConverterViewController: UIViewController {
     
     @IBAction func numButtons(_ sender: UIButton) {
         
-        inputDisplay.text = String(sender.tag-1) + self.inputDisplay.text!
-        currentNum = Double(inputDisplay?.text ?? "0")
-        
-        if let currentNum = Double(self.inputDisplay?.text ?? "0"){
+        buttonVal = String(sender.tag-1)
+        userInput.append(buttonVal)
+        inputDisplay.text = userInput + converterArray[activeConverterIndex].inputUnit
+     
+        if let currentNum = Double(userInput){
         
             outputDisplay.text = doConversion(currentNum: currentNum )
-            //print(currentNum)
         }
         
     }
@@ -33,21 +35,25 @@ class ConverterViewController: UIViewController {
     @IBAction func clearButton(_ sender: UIButton) {
         
         inputDisplay.text = "" + converterArray[activeConverterIndex].inputUnit
+        userInput = ""
         currentNum = 0
         outputDisplay.text = "" + converterArray[activeConverterIndex].outputUnit
     }
     
     @IBAction func negativeButton(_ sender: UIButton) {
         
-        inputDisplay.text = "-" + self.inputDisplay.text!
-        currentNum = -currentNum!
-        outputDisplay.text = doConversion(currentNum: currentNum!)
+        if(self.userInput.first != "-"){
+            self.userInput = "-" + self.userInput
+        }
+        
+        inputDisplay.text = userInput + converterArray[activeConverterIndex].inputUnit
+        
     }
     
     @IBAction func decimalButton(_ sender: UIButton) {
         
-        inputDisplay.text = self.inputDisplay.text! + "."
-        outputDisplay.text = doConversion(currentNum: currentNum ?? 0)
+        userInput.append(".")
+        inputDisplay.text = userInput + converterArray[activeConverterIndex].inputUnit
         
     }
     
@@ -105,22 +111,18 @@ class ConverterViewController: UIViewController {
             
         case "fahrenheit to celcius":
             
-            if let currentNum = Double(self.inputDisplay?.text ?? "0"){
-                
-                outputDisplay.text! = String((currentNum - 32) * (5/9))}
+                outputDisplay.text! = String((currentNum - 32) * (5/9))
             
         case "celcius to fahrenheit":
             
-             if let currentNum = Double(self.inputDisplay?.text ?? "0"){
-                outputDisplay.text! = String((currentNum * (9/5) + 32))}
+                outputDisplay.text! = String((currentNum * (9/5) + 32))
             
         case "miles to kilometers":
-             if let currentNum = Double(self.inputDisplay?.text ?? "0"){
-                outputDisplay.text! = String(currentNum * 0.62137)}
+            
+                outputDisplay.text! = String(currentNum * 0.62137)
             
         case "kilometers to miles":
-             if let currentNum = Double(self.inputDisplay?.text ?? "0"){
-                outputDisplay.text! = String(currentNum / 0.62137)}
+                outputDisplay.text! = String(currentNum / 0.62137)
             
         default:
             break
