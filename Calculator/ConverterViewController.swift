@@ -15,14 +15,12 @@ class ConverterViewController: UIViewController {
     var converterArray: [Converter] = [Converter]()
     var activeConverterIndex = 0
     var currentNum: Double? = 0
-    var MAX_NUM: Int = 4
     
     @IBOutlet weak var outputDisplay: UITextField!
     @IBOutlet weak var inputDisplay: UITextField!
     
     @IBAction func numButtons(_ sender: UIButton) {
         
-        if(inputDisplay.text?.count ?? 0 < MAX_NUM){
         buttonVal = String(sender.tag-1)
         userInput.append(buttonVal)
         inputDisplay.text = userInput + converterArray[activeConverterIndex].inputUnit
@@ -32,7 +30,6 @@ class ConverterViewController: UIViewController {
             outputDisplay.text = doConversion(currentNum: currentNum )
         }
         
-    }
         
     }
     
@@ -139,18 +136,19 @@ class ConverterViewController: UIViewController {
             
         case "fahrenheit to celcius":
             
-                outputDisplay.text! = String((currentNum - 32) * (5/9))
+                outputDisplay.text! = String(format: "%.2f", (currentNum - 32) * (5/9))
             
         case "celcius to fahrenheit":
             
-                outputDisplay.text! = String((currentNum * (9/5) + 32))
-            
+                outputDisplay.text! = String(format: "%.2f", (currentNum * (9/5) + 32))
+
         case "miles to kilometers":
             
-                outputDisplay.text! = String(currentNum / 0.62137)
+                outputDisplay.text! = String(format: "%.2f", (currentNum / 0.62137))
             
         case "kilometers to miles":
-                outputDisplay.text! = String(currentNum * 0.62137)
+            
+                outputDisplay.text! = String(format: "%.2f", (currentNum * 0.62137))
             
         default:
             break
