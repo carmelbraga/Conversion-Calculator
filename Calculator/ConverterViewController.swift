@@ -15,12 +15,14 @@ class ConverterViewController: UIViewController {
     var converterArray: [Converter] = [Converter]()
     var activeConverterIndex = 0
     var currentNum: Double? = 0
+    var MAX_NUM: Int = 4
     
     @IBOutlet weak var outputDisplay: UITextField!
     @IBOutlet weak var inputDisplay: UITextField!
     
     @IBAction func numButtons(_ sender: UIButton) {
         
+        if(inputDisplay.text?.count ?? 0 < MAX_NUM){
         buttonVal = String(sender.tag-1)
         userInput.append(buttonVal)
         inputDisplay.text = userInput + converterArray[activeConverterIndex].inputUnit
@@ -29,6 +31,8 @@ class ConverterViewController: UIViewController {
         
             outputDisplay.text = doConversion(currentNum: currentNum )
         }
+        
+    }
         
     }
     
@@ -44,17 +48,22 @@ class ConverterViewController: UIViewController {
         
         if(self.userInput.first != "-"){
             self.userInput = "-" + self.userInput
+        }else{
+            self.userInput.removeFirst()
         }
-        
+        if let currentNum = Double(userInput){
+            outputDisplay.text = doConversion(currentNum: currentNum )
+        }
         inputDisplay.text = userInput + converterArray[activeConverterIndex].inputUnit
         
     }
     
     @IBAction func decimalButton(_ sender: UIButton) {
         
+        if(!self.userInput.contains(".")){
         userInput.append(".")
         inputDisplay.text = userInput + converterArray[activeConverterIndex].inputUnit
-        
+        }
     }
     
     @IBAction func converterButtonClick(_ sender: Any) {
@@ -62,30 +71,50 @@ class ConverterViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: converterArray[0].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
-            self.outputDisplay.text = self.converterArray[0].outputUnit
+            //self.outputDisplay.text = self.converterArray[0].outputUnit
             self.activeConverterIndex = 0
-            self.inputDisplay.text = self.converterArray[0].inputUnit
+            //self.inputDisplay.text = self.converterArray[0].inputUnit
+            self.inputDisplay.text?.removeLast(2)
+            self.inputDisplay.text?.append(self.converterArray[0].inputUnit)
+            if let currentNum = Double(self.userInput){
+                self.outputDisplay.text = self.doConversion(currentNum: currentNum)
+            }
         }))
         
         alert.addAction(UIAlertAction(title: converterArray[1].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
-            self.outputDisplay.text = self.converterArray[1].outputUnit
+           // self.outputDisplay.text = self.converterArray[1].outputUnit
             self.activeConverterIndex = 1
-            self.inputDisplay.text = self.converterArray[1].inputUnit
+            //self.inputDisplay.text = self.converterArray[1].inputUnit
+            self.inputDisplay.text?.removeLast(2)
+            self.inputDisplay.text?.append(self.converterArray[1].inputUnit)
+            if let currentNum = Double(self.userInput){
+                self.outputDisplay.text = self.doConversion(currentNum: currentNum)
+            }
         }))
         
         alert.addAction(UIAlertAction(title: converterArray[2].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
-            self.outputDisplay.text = self.converterArray[2].outputUnit
+            //self.outputDisplay.text = self.converterArray[2].outputUnit
             self.activeConverterIndex = 2
-            self.inputDisplay.text = self.converterArray[2].inputUnit
+            //self.inputDisplay.text = self.converterArray[2].inputUnit
+            self.inputDisplay.text?.removeLast(2)
+            self.inputDisplay.text?.append(self.converterArray[2].inputUnit)
+            if let currentNum = Double(self.userInput){
+                self.outputDisplay.text = self.doConversion(currentNum: currentNum)
+            }
         }))
         
         alert.addAction(UIAlertAction(title: converterArray[3].label, style: UIAlertAction.Style.default, handler: {
             (alertAction) -> Void in
-            self.outputDisplay.text = self.converterArray[3].outputUnit
+            //self.outputDisplay.text = self.converterArray[3].outputUnit
             self.activeConverterIndex = 3
-            self.inputDisplay.text = self.converterArray[3].inputUnit
+            //self.inputDisplay.text = self.converterArray[3].inputUnit
+            self.inputDisplay.text?.removeLast(2)
+            self.inputDisplay.text?.append(self.converterArray[3].inputUnit)
+            if let currentNum = Double(self.userInput){
+                self.outputDisplay.text = self.doConversion(currentNum: currentNum)
+            }
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -106,7 +135,6 @@ class ConverterViewController: UIViewController {
     
     func doConversion(currentNum: Double) -> String{
         
-        
         switch converterArray[activeConverterIndex].label{
             
         case "fahrenheit to celcius":
@@ -119,10 +147,10 @@ class ConverterViewController: UIViewController {
             
         case "miles to kilometers":
             
-                outputDisplay.text! = String(currentNum * 0.62137)
+                outputDisplay.text! = String(currentNum / 0.62137)
             
         case "kilometers to miles":
-                outputDisplay.text! = String(currentNum / 0.62137)
+                outputDisplay.text! = String(currentNum * 0.62137)
             
         default:
             break
